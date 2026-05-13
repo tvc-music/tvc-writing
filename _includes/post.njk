@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ title }} — Timothy Van Cleave</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:      #f5f0e8;
+    --cream-mid:  #ede8de;
+    --cream-dark: #d8d0c0;
+    --ink:        #1a1510;
+    --ink-mid:    #3d3428;
+    --ink-dim:    rgba(26,21,16,0.55);
+    --gold:       #c4973a;
+    --gold-dim:   #8a6820;
+    --grey-line:  #ccc4b4;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Montserrat', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100%;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .top-bar {
+    height: 4px;
+    background: var(--gold);
+    width: 100%;
+  }
+
+  nav {
+    background: rgba(245,240,232,0.97);
+    border-bottom: 1px solid var(--grey-line);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+  }
+  .nav-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 28px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-back {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    transition: color 0.2s;
+  }
+  .nav-back::before { content: '←'; }
+  .nav-back:hover { color: var(--gold); }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  .site-main {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 64px 28px 80px;
+  }
+
+  .article-header {
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+  .article-type-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .article-type-tag::before { content: '◆'; font-size: 7px; }
+  .article-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 4.5vw, 40px);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .article-meta {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .article-meta-rule {
+    width: 100%;
+    height: 1px;
+    background: var(--grey-line);
+    margin-top: 20px;
+  }
+
+  .article-body {
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.3s;
+  }
+  .article-body p {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    line-height: 1.82;
+    color: var(--ink-mid);
+    margin-bottom: 24px;
+  }
+  .article-body p:first-of-type::first-letter {
+    float: left;
+    font-size: 56px;
+    line-height: 0.88;
+    font-weight: 700;
+    color: var(--gold);
+    margin-right: 6px;
+    margin-top: 6px;
+    font-family: 'Playfair Display', serif;
+  }
+  .article-body h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 40px 0 18px;
+    line-height: 1.3;
+  }
+  .article-body blockquote {
+    border-left: 3px solid var(--gold);
+    margin: 36px 0;
+    padding: 0 0 0 24px;
+  }
+  .article-body blockquote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .article-body blockquote p::first-letter { all: unset; }
+  .article-body blockquote cite {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    font-style: normal;
+  }
+  .article-body hr {
+    border: none;
+    text-align: center;
+    margin: 40px 0;
+  }
+  .article-body hr::after {
+    content: '· · ·';
+    color: var(--gold-dim);
+    font-size: 12px;
+    letter-spacing: 0.4em;
+  }
+
+  .email-section {
+    margin-top: 56px;
+    padding: 40px;
+    background: var(--cream-mid);
+    border: 1px solid var(--grey-line);
+    border-top: 3px solid var(--gold);
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.5s;
+  }
+  .email-section-label {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .email-section-label::before { content: '◆  '; font-size: 7px; }
+  .email-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .email-section > p {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--ink-dim);
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+  .email-credit {
+    font-size: 9px;
+    color: var(--ink-dim);
+    margin-top: 10px;
+    font-weight: 300;
+  }
+
+  .site-footer {
+    border-top: 1px solid var(--grey-line);
+    padding: 16px 28px;
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .site-footer span {
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--ink-dim);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .site-main { padding: 40px 20px 60px; }
+    .email-section { padding: 28px 20px; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-back" href="/"> All Writing</a>
+    <ul class="nav-links">
+      <li><a href="https://studio.timothyvancleave.com">Studio</a></li>
+      <li><a href="https://writing.timothyvancleave.com">Writing</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="site-main">
+
+  <header class="article-header">
+    <div class="article-type-tag">{{ type }} &nbsp;·&nbsp; {{ date | date: "%B %-d, %Y" }} &nbsp;·&nbsp; {{ read_time }}</div>
+    <h1>{{ title }}</h1>
+    <div class="article-meta">Timothy Van Cleave</div>
+    <div class="article-meta-rule"></div>
+  </header>
+
+  <article class="article-body">
+    {{ content | safe }}
+
+    <div class="email-section">
+      <div class="email-section-label">Enjoyed this?</div>
+      <h3>Get the next essay in your inbox.</h3>
+      <p>No schedule. No noise. Just writing, when it's ready.</p>
+      <!-- PASTE YOUR KIT EMBED CODE HERE -->
+      <p class="email-credit">Powered by Kit &nbsp;·&nbsp; Unsubscribe at any time</p>
+    </div>
+
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>&copy; Timothy Van Cleave &nbsp;·&nbsp; Portland, OR</span>
+  <span>timothyvancleave.com</span>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writing — Timothy Van Cleave</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:      #f5f0e8;
+    --cream-mid:  #ede8de;
+    --cream-dark: #d8d0c0;
+    --ink:        #1a1510;
+    --ink-mid:    #3d3428;
+    --ink-dim:    rgba(26,21,16,0.55);
+    --gold:       #c4973a;
+    --gold-dim:   #8a6820;
+    --grey-line:  #ccc4b4;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Montserrat', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100%;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ── GOLD TOP BAR ── */
+  .top-bar {
+    height: 4px;
+    background: var(--gold);
+    width: 100%;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: rgba(245,240,232,0.97);
+    border-bottom: 1px solid var(--grey-line);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+  }
+  .nav-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 28px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-brand {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+  }
+  .nav-brand span { color: var(--gold); }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover,
+  .nav-links a.active { color: var(--gold); }
+
+  /* ── MAIN LAYOUT ── */
+  .site-main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 64px 28px 80px;
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+  .page-header-rule {
+    width: 32px;
+    height: 2px;
+    background: var(--gold);
+    margin-bottom: 16px;
+  }
+  .page-header-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 10px;
+  }
+  .page-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .page-header-desc {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--ink-dim);
+    max-width: 480px;
+  }
+
+  /* ── ALL POSTS LIST ── */
+  .all-posts-header {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.4s;
+  }
+  .posts-list {
+    list-style: none;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.5s;
+  }
+  .posts-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--cream-dark);
+    transition: background 0.15s;
+  }
+  .posts-list li:last-child { border-bottom: none; }
+  .posts-list li:hover { padding-left: 6px; }
+  .post-tag-small {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    white-space: nowrap;
+    flex-shrink: 0;
+    width: 52px;
+  }
+  .post-date-small {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--ink-dim);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .post-title-small {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--ink);
+    flex: 1;
+    transition: color 0.2s;
+  }
+  .posts-list li:hover .post-title-small { color: var(--gold-dim); }
+
+  /* ── EMAIL SIGNUP ── */
+  .email-section {
+    margin-top: 64px;
+    padding: 40px;
+    background: var(--cream-mid);
+    border: 1px solid var(--grey-line);
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.65s;
+  }
+  .email-section-label {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .email-section-label::before { content: '◆  '; font-size: 7px; }
+  .email-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .email-section p {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--ink-dim);
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+  .email-form {
+    display: flex;
+    gap: 0;
+    max-width: 420px;
+  }
+  .email-form input {
+    flex: 1;
+    background: var(--cream);
+    border: 1px solid var(--grey-line);
+    border-right: none;
+    padding: 12px 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .email-form input::placeholder { color: var(--ink-dim); }
+  .email-form input:focus { border-color: var(--gold); }
+  .email-form button {
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    color: var(--cream);
+    padding: 12px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .email-form button:hover { background: var(--gold-dim); border-color: var(--gold-dim); }
+  .email-credit {
+    font-size: 9px;
+    color: var(--ink-dim);
+    margin-top: 10px;
+    font-weight: 300;
+  }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    border-top: 1px solid var(--grey-line);
+    padding: 16px 28px;
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .site-footer span {
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--ink-dim);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 600px) {
+    .site-main { padding: 40px 20px 60px; }
+    .email-section { padding: 28px 20px; }
+    .email-form { flex-direction: column; }
+    .email-form input { border-right: 1px solid var(--grey-line); border-bottom: none; }
+    .posts-list li { flex-wrap: wrap; gap: 6px; }
+    .post-tag-small { width: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar"></div>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-brand">Timothy <span>Van Cleave</span></span>
+    <ul class="nav-links">
+      <li><a href="https://studio.timothyvancleave.com">Studio</a></li>
+      <li><a href="https://music.timothyvancleave.com">Music</a></li>
+      <li><a href="https://writing.timothyvancleave.com" class="active">Writing</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="site-main">
+
+  <header class="page-header">
+    <div class="page-header-rule"></div>
+    <div class="page-header-label">Essays</div>
+    <h1>Writing.</h1>
+    <p class="page-header-desc">Essays on music, independence, and the working musician's life.</p>
+  </header>
+
+  <!-- ALL POSTS — populated automatically as you publish via Decap CMS -->
+  <div class="all-posts-header">All Posts</div>
+
+  <ul class="posts-list">
+    <!-- Posts will appear here after you publish your first essay -->
+  </ul>
+
+  <!-- EMAIL SIGNUP — Replace with actual Kit embed -->
+  <div class="email-section">
+    <div class="email-section-label">Get the Essays</div>
+    <h3>In your inbox.</h3>
+    <p>New essays delivered when they're ready.<br>No schedule. No noise.</p>
+    <!-- Replace the form below with your Kit embed code -->
+    <div class="email-form">
+      <input type="email" placeholder="your@email.com">
+      <button type="submit">Subscribe</button>
+    </div>
+    <p class="email-credit">Via Kit &nbsp;·&nbsp; Unsubscribe anytime</p>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <span>&copy; Timothy Van Cleave &nbsp;·&nbsp; Portland, OR</span>
+  <span>timothyvancleave.com</span>
+</footer>
+
+</body>
+</html>
