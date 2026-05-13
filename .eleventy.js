@@ -1,17 +1,18 @@
 module.exports = function(eleventyConfig) {
 
-  // Pass static files through as-is
+  // Pass these through without processing
   eleventyConfig.addPassthroughCopy("admin");
   eleventyConfig.addPassthroughCopy("images");
 
-  // Tell Eleventy where things live
+  // Don't process admin/index.html as a template
+  eleventyConfig.ignores.add("admin/**");
+
   return {
     dir: {
       input:    ".",
       includes: "_includes",
       output:   "_site"
     },
-    // Use Nunjucks for HTML templates
     htmlTemplateEngine: "njk",
     markdownTemplateEngine: "njk"
   };
