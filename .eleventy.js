@@ -6,7 +6,10 @@ module.exports = function(eleventyConfig) {
 
   // Don't process admin as a template
   eleventyConfig.ignores.add("admin/**");
-
+  
+eleventyConfig.addFilter("readableDate", dateObj => {
+    return new Date(dateObj).toLocaleDateString("en-US", { month: "long", year: "numeric" });
+  });
   // Add posts collection from _posts folder
   eleventyConfig.addCollection("posts", function(collectionApi) {
     return collectionApi.getFilteredByGlob("_posts/*.md").reverse();
