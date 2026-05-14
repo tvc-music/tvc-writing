@@ -1,0 +1,5 @@
+node_modules/
+_site/
+.DS_Store
+admin/.DS_Store
+_includes/.DS_Store
