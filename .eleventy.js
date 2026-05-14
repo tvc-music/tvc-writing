@@ -1,11 +1,16 @@
 module.exports = function(eleventyConfig) {
 
-  // Pass these through without processing
+  // Pass static files through as-is
   eleventyConfig.addPassthroughCopy("admin");
   eleventyConfig.addPassthroughCopy("images");
 
-  // Don't process admin/index.html as a template
+  // Don't process admin as a template
   eleventyConfig.ignores.add("admin/**");
+
+  // Add posts collection from _posts folder
+  eleventyConfig.addCollection("posts", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("_posts/*.md").reverse();
+  });
 
   return {
     dir: {
