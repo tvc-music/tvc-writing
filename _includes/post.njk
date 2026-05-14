@@ -8,7 +8,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
+  {% raw %}
+:root {
     --cream:      #f5f0e8;
     --cream-mid:  #ede8de;
     --cream-dark: #d8d0c0;
@@ -256,6 +257,7 @@
     .email-section { padding: 28px 20px; }
     .nav-links { display: none; }
   }
+{% endraw %}
 </style>
 </head>
 <body>
@@ -275,7 +277,7 @@
 <main class="site-main">
 
   <header class="article-header">
-    <div class="article-type-tag">{{ type }} &nbsp;·&nbsp; {{ date | date: "%B %-d, %Y" }} &nbsp;·&nbsp; {{ read_time }}</div>
+    <div class="article-type-tag">{{ type }} &nbsp;·&nbsp; {{ date }} &nbsp;·&nbsp; {{ read_time }}</div>
     <h1>{{ title }}</h1>
     <div class="article-meta">Timothy Van Cleave</div>
     <div class="article-meta-rule"></div>
