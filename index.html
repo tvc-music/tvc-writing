@@ -318,7 +318,7 @@
   {% for post in collections.posts %}
 <li>
   <span class="post-tag-small">{{ post.data.type }}</span>
- <span class="post-date-small">{{ post.data.date | date("MMM YYYY") }}</span>
+<span class="post-date-small">{{ post.data.date }}</span>
   <a class="post-title-small" href="{{ post.url }}">{{ post.data.title }}</a>
 </li>
 {% endfor %}
