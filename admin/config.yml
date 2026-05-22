@@ -19,5 +19,6 @@ collections:
         widget: "select"
         options: ["Essay", "Note"]
         default: "Essay"
+      - { label: "Layout", name: "layout", widget: "hidden", default: "post.njk" }
       - { label: "Read Time", name: "read_time",  widget: "string", hint: "e.g. 8 min read", required: false }
       - { label: "Body",      name: "body",       widget: "markdown" }
