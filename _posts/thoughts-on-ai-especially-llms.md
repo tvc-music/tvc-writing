@@ -2,6 +2,7 @@
 title: Thoughts on AI, Especially LLMs
 date: 2026-05-22
 type: Essay
+layout: post.njk
 ---
 Trying to read more about AI and how it works is a challenge because most posts and articles take one of two positions. Either AI is so great or it's a flaming dumpster fire about to engulf all of humanity.
 
